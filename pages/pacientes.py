@@ -20,8 +20,11 @@ with tab1:
     idade = st.number_input("Digite a idade do paciente: ")
 
     if st.button("Cadastrar"):
-        View.inserir_paciente(nome, idade, fone, cpf)
-        st.write("Paciente cadastrado.")
+        if not nome or not fone or not cpf or not idade:
+            st.warning("Adicione Todos Os Valores.")
+        else:
+            View.inserir_paciente(nome, idade, fone, cpf)
+            st.success("Paciente cadastrado.")
 
 with tab2:
     st.title("Listar")
@@ -62,6 +65,8 @@ with tab2:
         hide_index=True,
     )
 
+
+
 with tab3:
     st.title("Atualizar")
 
@@ -82,19 +87,28 @@ with tab3:
         id_paciente = paciente.get_id_paciente()
 
         if st.button("Atualizar"):
-            View.atualizar_paciente(id_paciente, nome, idade, fone, cpf)
-            st.write("Paciente atualizado.")
+            if not nome or not fone or not cpf or not idade:
+                st.warning("Adicione Todos Os Valores.")
+            else:
+                View.atualizar_paciente(id_paciente, nome, idade, fone, cpf)
+                st.success("Paciente atualizado.")
+
+
+
 
 with tab4:
     st.title("Excluir")
 
-    paciente = st.selectbox("Selecione o paciente para excluir", View.listar_pacientes(), index=None)
+    medico = st.selectbox("Selecione o paciente para excluir", View.listar_pacientes(), index=None)
 
-    if paciente is not None:
-        st.write("Você selecionou:", paciente.get_nome())
+    if medico is not None:
+        st.write("Você selecionou:", medico.get_nome())
 
-        id_paciente = paciente.get_id_paciente()
+        id_paciente = medico.get_id_paciente()
 
         if st.button("Excluir"):
-            View.excluir_paciente(id_paciente)
-            st.write("Paciente excluído.")
+            if not medico:
+                st.warning("selecione um médico.")
+            else:
+                View.excluir_paciente(id_paciente)
+                st.success("Paciente excluído.")

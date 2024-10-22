@@ -57,36 +57,38 @@ with tab2:
 with tab3:
     st.title("Atualizar")
 
-    paciente = st.selectbox("Selecione o paciente para atualizar", View.listar_pacientes(), index=None)
+    medico = st.selectbox("Selecione o medico para atualizar", View.listar_medicos(), index=None)
 
-    if paciente is not None:
-        st.write("Você selecionou:", paciente.get_nome())
+    if medico is not None:
+        st.write("Você selecionou:", medico.get_nome())
 
-        nome = st.text_input("Digite o nome do paciente: ", value=paciente.get_nome())
-        fone = st.text_input(
-            "Digite o telefone do paciente: ", value=paciente.get_fone()
-        )
-        cpf = st.text_input("Digite o CPF do paciente: ", value=paciente.get_cpf())
-        idade = st.number_input(
-            "Digite a idade do paciente: ", value=paciente.get_idade()
-        )
+        nome = st.text_input("Digite o nome do medico: ", value=medico.get_nome())
+        
+        especificacao = st.text_input("Digite o especificação do médico: ", value=medico.get_especificacao())
+        
 
-        id_paciente = paciente.get_id_paciente()
+        id_medico = medico.get_id_medico()
 
         if st.button("Atualizar"):
-            View.atualizar_paciente(id_paciente, nome, idade, fone, cpf)
-            st.write("Paciente atualizado.")
+            if not nome or not especificacao:
+                st.warning("Adicione Todos Os Valores")
+            else:
+                View.atualizar_medico(id_medico, nome, especificacao)
+                st.success("médico atualizado.")
+
 
 with tab4:
     st.title("Excluir")
 
-    paciente = st.selectbox("Selecione o paciente para excluir", View.listar_pacientes(), index=None)
+    medico = st.selectbox("Selecione o medico para excluir", View.listar_medicos(), index=None)
 
-    if paciente is not None:
-        st.write("Você selecionou:", paciente.get_nome())
+    if medico is not None:
+        st.write("Você selecionou:", medico.get_nome())
 
-        id_paciente = paciente.get_id_paciente()
+        id_medico = medico.get_id_medico()
 
         if st.button("Excluir"):
-            View.excluir_paciente(id_paciente)
-            st.write("Paciente excluído.")
+            if not medico:
+                st.warning("Selecione o campo.")
+            View.excluir_medico(id_medico)
+            st.write("Médico excluído.")
