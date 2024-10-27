@@ -12,7 +12,7 @@ st.title("Consultas")
 
 
 
-tab1, tab2, tab3, tab4 = st.tabs(["Cadastrar", "Listar", "Atualizar", "Excluir"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Cadastrar", "Listar", "Atualizar", "Excluir", "Agenda"])
 
 with tab1:
     st.title("Cadastrar Consulta")

@@ -23,6 +23,7 @@ class Consulta:
     def set_idPaciente(self, id_paciente: int):
         self.id_paciente = id_paciente
 
+
     def get_idPaciente(self):
         return self.id_paciente
 
@@ -42,6 +43,8 @@ class Consulta:
         return self.especificacao
 
     def set_horario(self, horario: datetime):
+        if horario == 0:
+            self.horario = horario
         today = datetime.now()
         if horario > today:
             self.horario = horario

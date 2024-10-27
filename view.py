@@ -1,6 +1,7 @@
 from models.pacientes import Paciente, Pacientes_CRUD
 from models.consultas import Consulta, Consultas_CRUD
 from models.medicos import Medico, Medico_CRUD
+from models.agendaa import Agenda, Criar, CriarAgenda
 
 class View:
     @staticmethod
@@ -68,3 +69,9 @@ class View:
     @staticmethod
     def excluir_consulta(id_consulta):
         Consultas_CRUD.excluir(id_consulta)
+
+
+    @staticmethod
+    def Agendaa(data, Hinicial, Hfinal, intervalo, duracao):
+        Criar.CriarAgenda(data, Hinicial, Hfinal, intervalo, duracao)
+        
