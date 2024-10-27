@@ -20,48 +20,57 @@ with tab1:
     id_medico = st.text_input("Digite o id do Médico: ")
     especificacao = st.text_input("Digite a especificação do Médico: ")
     data = st.date_input("Digite a data da consulta")
-    hora = st.time_input("Digite o horário da consulta")
+    nseidarnomepravariavel = st.selectbox("Selecione um horário disponível", View.listar_consultas(), index=None)
 
-    horario = datetime.combine(data, hora)
+    # horario = datetime.combine(data, hora)
 
 
 
 
     if st.button("Cadastrar"):
-        if not id_paciente or not id_medico or not especificacao or not data or not hora:
+        if not id_paciente or not id_medico or not especificacao or not data:
             st.warning("Preencha aos campos")
         else:
-            View.inserir_consulta(id_paciente, id_medico, especificacao, horario)
+            View.atualizar_consulta(nseidarnomepravariavel.id_consulta, id_paciente, id_medico, especificacao, nseidarnomepravariavel.horario)
             st.write("Consulta cadastrada.")
 
 with tab2:
     st.title("Listar")
 
-    ids: list= []
-    nomes: list = []
+    ids_consulta: list= []
+    ids_pacientes: list= []
+    ids_medicos: list= []
     especificacoes: list = []
+    horarios: list = []
 
-    medicos = View.listar_medicos()
-    for m in medicos:
-        ids.append(m.get_id_medico())
-        nomes.append(m.get_nome())
-        especificacoes.append(m.get_especificacao())
+    consultas = View.listar_consultas()
+    for c in consultas:
+        ids_consulta.append(c.get_idConsulta())
+        ids_pacientes.append(c.get_idPaciente())
+        ids_medicos.append(c.get_idMedico())
+        especificacoes.append(c.get_especificacao())
+        horarios.append(c.get_horario())
         
 
     df = pd.DataFrame(
         {
-            "id": ids,
-            "nome": nomes,
-            "especificacao": especificacoes,
+            "id consulta": ids_consulta,
+            "id paciente": ids_pacientes,
+            "id médico": ids_medicos,
+            "especificação": especificacoes,
+            "horários": horarios,
+        
         }
     )
 
     st.dataframe(
         df,
         column_config={
-            "id": "ID",
-            "nome": "Nome",
+            "id consulta": "id consulta",
+            "id paciente": "id paciente",
+            "id médico": "id médico",
             "especificacao": "Especificação",
+            "horários": "horários",
         },
         hide_index=True,
     )
@@ -69,38 +78,52 @@ with tab2:
 with tab3:
     st.title("Atualizar")
 
-    medico = st.selectbox("Selecione o medico para atualizar", View.listar_medicos(), index=None)
+    consulta = st.selectbox("Selecione uma consulta para atualizar", View.listar_consultas(), index=None)
 
-    if medico is not None:
-        st.write("Você selecionou:", medico.get_nome())
+    if consulta is not None:
+        st.write("Você selecionou a consulta com o id:", consulta.get_idConsulta())
 
-        nome = st.text_input("Digite o nome do medico: ", value=medico.get_nome())
-        
-        especificacao = st.text_input("Digite o especificação do médico: ", value=medico.get_especificacao())
-        
-
-        id_medico = medico.get_id_medico()
+        id_paciente = st.text_input("Digite o id do paciente: ", value=consulta.get_idPaciente())
+        id_medico = st.text_input("Digite o id do medico: ", value=consulta.get_idMedico())
+        especificacao = st.text_input("Digite o especificação do médico: ", value=consulta.get_especificacao())
+        dia = st.date_input("qual dia?")
+        hora = st.time_input("Qual o horário?")
+        horario = datetime.combine(dia, hora)
 
         if st.button("Atualizar"):
-            if not nome or not especificacao:
+            if not id_paciente or not id_medico or not especificacao or not dia or not hora:
                 st.warning("Adicione Todos Os Valores")
             else:
-                View.atualizar_medico(id_medico, nome, especificacao)
-                st.success("médico atualizado.")
+                View.atualizar_consulta(id_paciente, id_medico, especificacao, horario)
+                st.success("consulta atualizado.")
 
 
 with tab4:
     st.title("Excluir")
 
-    medico = st.selectbox("Selecione o medico para excluir", View.listar_medicos(), index=None)
+    consulta = st.selectbox("Selecione a consulta para excluir", View.listar_consultas(), index=None)
 
-    if medico is not None:
-        st.write("Você selecionou:", medico.get_nome())
+    if consulta is not None:
+        st.write("Você selecionou:", consulta.get_idConsulta())
 
-        id_medico = medico.get_id_medico()
+        id_consulta = consulta.get_idConsulta()
 
         if st.button("Excluir"):
-            if not medico:
+            if not consulta:
                 st.warning("Selecione o campo.")
-            View.excluir_medico(id_medico)
-            st.write("Médico excluído.")
+            View.excluir_medico(id_consulta)
+            st.write("consulta excluída.")
+
+
+with tab5:
+
+    st.title("Agenda")
+
+    data = st.date_input("Qual o dia que desejas abrir a agenda?")
+    Hinicial = st.time_input("Qual o horário inicial pra as consultas?")
+    Hfinal = st.time_input("Qual horário final para as consultas?")
+    intervalo = st.time_input("Qual o intervalo entre as consultas?")
+    duracao = st.time_input("Qual a duração das consultas?")
+
+    if st.button("Criar"):
+        View.Agendaa(data, Hinicial, Hfinal, intervalo, duracao)

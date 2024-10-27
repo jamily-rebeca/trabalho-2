@@ -61,16 +61,18 @@ class Agenda:
 # esta função manipulará as informações dadas e usará  
 class Criar:
     @classmethod
-    def CriarAgenda(cls, data, Hinicial, Hfinal, intervalo, duracao):
+    def CriarAgenda(cls, data, Hinicial, Hfinal, intervalo_time, duracao_time):
         data_inicial = datetime.combine(data, Hinicial)
         data_final = datetime.combine(data, Hfinal)
         Consultas_CRUD.inserir(0, 0, "--", data_inicial)
+        intervalo = timedelta(hours=intervalo_time.hour, minutes=intervalo_time.minute)
+        duracao = timedelta(hours=duracao_time.hour, minutes=duracao_time.minute)
+
         horario = data_inicial + intervalo + duracao
 
-
-        while (horario:datetime + duracao + intervalo < data_final):
+        while (horario + duracao + intervalo < data_final):
             Consultas_CRUD.inserir_consulta(0, 0, "--", horario)
+            intervalo
             horario = horario + duracao + intervalo
 
 
-    

@@ -2,6 +2,7 @@ from datetime import datetime
 import json
 from models.pacientes import Pacientes_CRUD
 from models.medicos import Medico_CRUD
+from datetime import timedelta
 
 
 class Consulta:
@@ -154,3 +155,19 @@ class Consultas_CRUD:
                     cls.salvar()
                     return
             raise ValueError("Consulta não encontrada")
+
+
+    @classmethod
+    def CriarAgenda(cls, data, Hinicial, Hfinal, intervalo_time, duracao_time):
+        data_inicial = datetime.combine(data, Hinicial)
+        data_final = datetime.combine(data, Hfinal)
+        Consultas_CRUD.inserir(0, 0, "--", data_inicial)
+        intervalo = timedelta(hours=intervalo_time.hour, minutes=intervalo_time.minute)
+        duracao = timedelta(hours=duracao_time.hour, minutes=duracao_time.minute)
+
+        horario = data_inicial + intervalo + duracao
+
+        while (horario + duracao + intervalo < data_final):
+            Consultas_CRUD.inserir_consulta(0, 0, "--", horario)
+            intervalo
+            horario = horario + duracao + intervalo
