@@ -1,7 +1,7 @@
-import streamlit as st
-from view import View
-import pandas as pd
+import streamlit as st # type: ignore
+import pandas as pd # type: ignore
 from datetime import datetime
+from view import View
 
 st.set_page_config(
     page_title="Consultas",
@@ -20,7 +20,7 @@ with tab1:
     id_medico = st.text_input("Digite o id do Médico: ")
     especificacao = st.text_input("Digite a especificação do Médico: ")
     data = st.date_input("Digite a data da consulta")
-    nseidarnomepravariavel = st.selectbox("Selecione um horário disponível", View.listar_consultas(), index=None)
+    nseidarnomepravariavel = st.selectbox("Selecione um horário disponível", View.listConsultas(), index=None)
 
     # horario = datetime.combine(data, hora)
 
@@ -43,7 +43,7 @@ with tab2:
     especificacoes: list = []
     horarios: list = []
 
-    consultas = View.listar_consultas()
+    consultas = View.listConsultas()
     for c in consultas:
         ids_consulta.append(c.get_idConsulta())
         ids_pacientes.append(c.get_idPaciente())
@@ -78,7 +78,7 @@ with tab2:
 with tab3:
     st.title("Atualizar")
 
-    consulta = st.selectbox("Selecione uma consulta para atualizar", View.listar_consultas(), index=None)
+    consulta = st.selectbox("Selecione uma consulta para atualizar", View.listConsultas(), index=None)
 
     if consulta is not None:
         st.write("Você selecionou a consulta com o id:", consulta.get_idConsulta())
@@ -94,14 +94,14 @@ with tab3:
             if not id_paciente or not id_medico or not especificacao or not dia or not hora:
                 st.warning("Adicione Todos Os Valores")
             else:
-                View.atualizar_consulta(id_paciente, id_medico, especificacao, horario)
+                View.atualizar_consulta(consulta.get_idConsulta(), id_paciente, id_medico, especificacao, horario)
                 st.success("consulta atualizado.")
 
 
 with tab4:
     st.title("Excluir")
 
-    consulta = st.selectbox("Selecione a consulta para excluir", View.listar_consultas(), index=None)
+    consulta = st.selectbox("Selecione a consulta para excluir", View.listConsultas(), index=None)
 
     if consulta is not None:
         st.write("Você selecionou:", consulta.get_idConsulta())

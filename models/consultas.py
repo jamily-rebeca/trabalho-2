@@ -64,6 +64,14 @@ class Consultas_CRUD:
     objetos_consulta: list[Consulta] = []
 
     @classmethod
+    def listConsultas(cls):
+        allConsultas = []
+        cls.abrir()
+        for consultas in cls.objetos_consulta:
+            allConsultas.append(consultas)
+        return allConsultas
+
+    @classmethod
     def abrir(cls):
         cls.objetos_consulta = []
         try:
@@ -161,7 +169,8 @@ class Consultas_CRUD:
     def CriarAgenda(cls, data, Hinicial, Hfinal, intervalo_time, duracao_time):
         data_inicial = datetime.combine(data, Hinicial)
         data_final = datetime.combine(data, Hfinal)
-        Consultas_CRUD.inserir(0, 0, "--", data_inicial)
+        obj = Consulta(0, 0, "--", data_inicial)
+        Consultas_CRUD.inserir(obj)
         intervalo = timedelta(hours=intervalo_time.hour, minutes=intervalo_time.minute)
         duracao = timedelta(hours=duracao_time.hour, minutes=duracao_time.minute)
 

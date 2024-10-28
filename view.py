@@ -1,7 +1,7 @@
 from models.pacientes import Paciente, Pacientes_CRUD
 from models.consultas import Consulta, Consultas_CRUD
 from models.medicos import Medico, Medico_CRUD
-from models.agendaa import Agenda, Criar, CriarAgenda
+from models.agendaa import Agenda, Criar
 
 class View:
     @staticmethod
@@ -56,6 +56,10 @@ class View:
     @staticmethod
     def listar_consultas(id_paciente):
         return Consultas_CRUD.listar(id_paciente)
+    
+    @staticmethod
+    def listConsultas():
+        return Consultas_CRUD.listConsultas()
 
     @staticmethod
     def listar_consultas_especificacao(id_paciente, especificacao):
