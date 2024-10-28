@@ -26,6 +26,8 @@ with tab1:
     # horario = datetime.combine(data, hora)
 
     if st.button("Cadastrar"):
+        # if select.get_idPaciente() != 0:
+        #     st.warning("selecione um horário ainda não preechido")
         if not id_paciente or not id_medico or not especificacao:
             st.warning("Preencha aos campos")
         else:

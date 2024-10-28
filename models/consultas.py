@@ -72,7 +72,8 @@ class Consultas_CRUD:
         allConsultas = []
         cls.abrir()
         for consultas in cls.objetos_consulta:
-            allConsultas.append(consultas)
+            if consultas.get_idPaciente == 0:
+                allConsultas.append(consultas)
         return allConsultas
 
     @classmethod
@@ -154,8 +155,8 @@ class Consultas_CRUD:
                 x.set_horario(consulta.get_horario())
                 cls.salvar()
                 return
-            else:
-                raise ValueError("id não encontrado")
+        else:
+            raise ValueError("id não encontrado")
 
     @classmethod
     def excluir(cls, id_consulta):
