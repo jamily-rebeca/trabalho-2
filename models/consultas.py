@@ -44,10 +44,11 @@ class Consulta:
         return self.especificacao
 
     def set_horario(self, horario: datetime):
-        if horario == 0:
-            self.horario = horario
-        today = datetime.now()
-        if horario > today:
+        # if horario == 0:
+        #     self.horario = horario
+        # today = datetime.now()
+        # if horario > today:
+        if horario:
             self.horario = horario
         else:
             raise ValueError("determine um horário válido")
