@@ -2,6 +2,7 @@ import streamlit as st # type: ignore
 import pandas as pd # type: ignore
 from datetime import datetime
 from view import View
+from models.consultas import Consulta
 
 st.set_page_config(
     page_title="Consultas",
@@ -19,19 +20,16 @@ with tab1:
     id_paciente = st.text_input("Digite id do paciente: ")
     id_medico = st.text_input("Digite o id do Médico: ")
     especificacao = st.text_input("Digite a especificação do Médico: ")
-    data = st.date_input("Digite a data da consulta")
-    nseidarnomepravariavel = st.selectbox("Selecione um horário disponível", View.listConsultas(), index=None)
+    # data = st.date_input("Digite a data da consulta")
+    select = st.selectbox("Selecione um horário disponível", View.listConsultas(), index=None)
 
     # horario = datetime.combine(data, hora)
 
-
-
-
     if st.button("Cadastrar"):
-        if not id_paciente or not id_medico or not especificacao or not data:
+        if not id_paciente or not id_medico or not especificacao:
             st.warning("Preencha aos campos")
         else:
-            View.atualizar_consulta(nseidarnomepravariavel.id_consulta, id_paciente, id_medico, especificacao, nseidarnomepravariavel.horario)
+            View.atualizar_consulta(select.get_idConsulta(), id_paciente, id_medico, especificacao, select.get_horario())
             st.write("Consulta cadastrada.")
 
 with tab2:

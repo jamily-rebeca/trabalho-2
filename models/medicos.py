@@ -45,7 +45,7 @@ class Medico_CRUD:
     def abrir(cls):
         cls.objetos_medicos = []
         try:
-            with open("medicos.json", mode="r") as arquivo:  # r - read
+            with open("data/medicos.json", mode="r") as arquivo:  # r - read
                 texto = json.load(arquivo)
                 for obj in texto:
                     m = Medico(obj["id_medico"], obj["nome"], obj["especificacao"])
@@ -55,7 +55,7 @@ class Medico_CRUD:
 
     @classmethod
     def salvar(cls):
-        with open("medicos.json", mode="w") as arquivo:
+        with open("data/medicos.json", mode="w") as arquivo:
             json.dump(cls.objetos_medicos, arquivo, default=vars)
 
     @classmethod

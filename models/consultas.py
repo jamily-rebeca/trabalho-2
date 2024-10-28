@@ -53,12 +53,15 @@ class Consulta:
         else:
             raise ValueError("determine um horário válido")
 
-    def get_horario(self):
+    def get_horario_str(self):
         strHorario = datetime.strftime(self.horario, "%d/%m/%Y %H:%M")
         return strHorario
+    
+    def get_horario(self):
+        return self.horario
 
     def __str__(self):
-        return f"\nid_consulta: {self.get_idConsulta()} | id_paciente: {self.get_idPaciente()} | id_médico: {self.get_idMedico()} | especificação: {self.get_especificacao()} | horário: {self.get_horario()}"
+        return f"\nid_consulta: {self.get_idConsulta()} | id_paciente: {self.get_idPaciente()} | id_médico: {self.get_idMedico()} | especificação: {self.get_especificacao()} | horário: {self.get_horario_str()}"
 
 
 class Consultas_CRUD:
@@ -76,7 +79,7 @@ class Consultas_CRUD:
     def abrir(cls):
         cls.objetos_consulta = []
         try:
-            with open("consultas.json", mode="r") as arquivo:
+            with open("data/consultas.json", mode="r") as arquivo:
                 texto = json.load(arquivo)
                 for obj in texto:
                     c = Consulta(
@@ -98,7 +101,7 @@ class Consultas_CRUD:
 
     @classmethod
     def salvar(cls):
-        with open("consultas.json", mode="w") as arquivo:
+        with open("data/consultas.json", mode="w") as arquivo:
             json.dump(cls.objetos_consulta, arquivo, default=Consultas_CRUD.modo)
 
     @classmethod
@@ -166,18 +169,18 @@ class Consultas_CRUD:
             raise ValueError("Consulta não encontrada")
 
 
-    @classmethod
-    def CriarAgenda(cls, data, Hinicial, Hfinal, intervalo_time, duracao_time):
-        data_inicial = datetime.combine(data, Hinicial)
-        data_final = datetime.combine(data, Hfinal)
-        obj = Consulta(0, 0, "--", data_inicial)
-        Consultas_CRUD.inserir(obj)
-        intervalo = timedelta(hours=intervalo_time.hour, minutes=intervalo_time.minute)
-        duracao = timedelta(hours=duracao_time.hour, minutes=duracao_time.minute)
+    # @classmethod
+    # def CriarAgenda(cls, data, Hinicial, Hfinal, intervalo_time, duracao_time):
+    #     data_inicial = datetime.combine(data, Hinicial)
+    #     data_final = datetime.combine(data, Hfinal)
+    #     obj = Consulta(0, 0, "--", data_inicial)
+    #     Consultas_CRUD.inserir(obj)
+    #     intervalo = timedelta(hours=intervalo_time.hour, minutes=intervalo_time.minute)
+    #     duracao = timedelta(hours=duracao_time.hour, minutes=duracao_time.minute)
 
-        horario = data_inicial + intervalo + duracao
+    #     horario = data_inicial + intervalo + duracao
 
-        while (horario + duracao + intervalo < data_final):
-            Consultas_CRUD.inserir_consulta(0, 0, "--", horario)
-            intervalo
-            horario = horario + duracao + intervalo
+    #     while (horario + duracao + intervalo < data_final):
+    #         Consultas_CRUD.inserir_consulta(0, 0, "--", horario)
+            
+    #         horario = horario + duracao + intervalo
