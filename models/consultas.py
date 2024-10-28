@@ -72,7 +72,7 @@ class Consultas_CRUD:
         allConsultas = []
         cls.abrir()
         for consultas in cls.objetos_consulta:
-            if consultas.get_idPaciente == 0:
+            if consultas.get_idPaciente() == 0:
                 allConsultas.append(consultas)
         return allConsultas
 
