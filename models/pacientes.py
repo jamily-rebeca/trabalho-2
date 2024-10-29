@@ -3,12 +3,14 @@ from datetime import datetime
 
 
 class Paciente:
-    def __init__(self, id_paciente, nome, idade, fone, cpf):
+    def __init__(self, id_paciente, nome, idade, fone, cpf, senha, email):
         self.set_id_paciente(id_paciente)
         self.set_nome(nome)
         self.set_idade(idade)
         self.set_fone(fone)
         self.set_cpf(cpf)
+        self.set_senha(senha)
+        self.set_email(email)
 
     def set_id_paciente(self, id_paciente: int):
         self.id_paciente = id_paciente
@@ -50,8 +52,20 @@ class Paciente:
     def get_idade(self):
         return self.idade
 
+    def set_senha(self, senha):
+        self.senha = senha
+
+    def get_senha(self):
+        return self.senha
+
+    def set_email(self, email):
+        self.email = email
+
+    def get_email(self):
+        return self.email
+
     def __str__(self):
-        return f"\nid: {self.get_id_paciente()} | nome: {self.get_nome()} | idade: {self.get_idade()} | cpf: {self.get_cpf()} | telefone: {self.get_fone()}"
+        return f"\nid: {self.get_id_paciente()} | nome: {self.get_nome()} | idade: {self.get_idade()} | cpf: {self.get_cpf()} | telefone: {self.get_fone()} | senha(achoqeundeveriapôr): {self.get_senha()} | email: {self.get_email()}"
 
 
 class Pacientes_CRUD:
@@ -70,6 +84,8 @@ class Pacientes_CRUD:
                         obj["idade"],
                         obj["fone"],
                         obj["cpf"],
+                        obj["senha"],
+                        obj["email"]
                     )
                     cls.objetos_pacientes.append(p)
         except FileNotFoundError:
@@ -86,12 +102,16 @@ class Pacientes_CRUD:
     ):  # eu vou receber todos os atributos com exceção do id_cliente. Então eu crio um
         cls.abrir()  # eu poderia criar um random.radint para criar um id_cliente pouco provável  de se repetir, mas n
         x = 0
-        for y in cls.objetos_pacientes:
-            if y.id_paciente > x:
-                x = y.id_paciente
-        obj.id_paciente = x + 1
-        cls.objetos_pacientes.append(obj)
-        cls.salvar()
+        for email in cls.objetos_pacientes:
+            if email in cls.objetos_pacientes:
+                raise ValueError("informe um email válido")
+            else:
+                for y in cls.objetos_pacientes:
+                    if y.id_paciente > x:
+                        x = y.id_paciente
+                obj.id_paciente = x + 1
+                cls.objetos_pacientes.append(obj)
+                cls.salvar()
 
     @classmethod
     def listar(cls):
@@ -109,9 +129,7 @@ class Pacientes_CRUD:
             raise ValueError("preencher este campo")
 
     @classmethod
-    def atualizar(
-        cls, p: Paciente
-    ):  # nesse objeto o cliente me fornecerá o id_cliente de usuário e os demais atributos serão para a troca
+    def atualizar(cls, p: Paciente):  # nesse objeto o cliente me fornecerá o id_cliente de usuário e os demais atributos serão para a troca
         cls.abrir()
         for x in cls.objetos_pacientes:
             if p.id_paciente == x.id_paciente:
@@ -119,6 +137,8 @@ class Pacientes_CRUD:
                 x.set_idade(p.get_idade())
                 x.set_fone(p.get_fone())
                 x.set_cpf(p.get_cpf())
+                x.set_senha(p.get_senha())
+                x.set_email(p.get_email())
                 cls.salvar()
 
     @classmethod

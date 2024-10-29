@@ -5,8 +5,8 @@ from models.agendaa import Agenda, Criar
 
 class View:
     @staticmethod
-    def inserir_paciente(nome, idade, fone, cpf):
-        obj = Paciente(0, nome, idade, fone, cpf)
+    def inserir_paciente(nome, idade, fone, cpf, senha, email):
+        obj = Paciente(0, nome, idade, fone, cpf, senha, email)
         Pacientes_CRUD.inserir(obj)
 
     @staticmethod

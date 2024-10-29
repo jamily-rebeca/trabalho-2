@@ -1,6 +1,6 @@
-import streamlit as st
+import streamlit as st # type: ignore
 from view import View
-import pandas as pd
+import pandas as pd # type: ignore
 
 st.set_page_config(
     page_title="Médicos",
