@@ -3,6 +3,8 @@ from models.consultas import Consulta, Consultas_CRUD
 from models.medicos import Medico, Medico_CRUD
 from models.agendaa import Agenda, Criar
 
+
+
 class View:
     @staticmethod
     def inserir_paciente(nome, idade, fone, cpf, senha, email):
@@ -18,8 +20,8 @@ class View:
         return Pacientes_CRUD.listar_id_paciente(id_paciente)
 
     @staticmethod
-    def atualizar_paciente(id, nome, idade, fone, cpf):
-        obj = Paciente(id, nome, idade, fone, cpf)
+    def atualizar_paciente(id, nome, idade, fone, cpf, email, senha):
+        obj = Paciente(id, nome, idade, fone, cpf, email, senha)
         Pacientes_CRUD.atualizar(obj)
 
     @staticmethod

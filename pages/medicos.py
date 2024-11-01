@@ -7,6 +7,12 @@ st.set_page_config(
     page_icon="👋",
 )
 
+with st.sidebar:
+    st.page_link("pages/medicos.py", label="Médicos")
+    st.page_link("pages/consultas.py", label="Consultas")
+    st.page_link("pages/pacientes.py", label="Paciente")
+
+
 st.title("Página 2 medicos")
 
 

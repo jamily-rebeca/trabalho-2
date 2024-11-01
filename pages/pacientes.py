@@ -1,12 +1,17 @@
 import streamlit as st # type: ignore
 from view import View
 import pandas as pd # type: ignore
-
+from models.pacientes import Pacientes_CRUD
 
 st.set_page_config(
     page_title="Pacientes",
     page_icon="👋",
 )
+
+with st.sidebar:
+    st.page_link("pages/medicos.py", label="Médicos")
+    st.page_link("pages/consultas.py", label="Consultas")
+    st.page_link("pages/pacientes.py", label="Paciente")
 st.header("Cadastro de pacientes")
 
 tab1, tab2, tab3, tab4 = st.tabs(["Cadastrar", "Listar", "Atualizar", "Excluir"])
@@ -27,8 +32,13 @@ with tab1:
         if not nome or not fone or not cpf or not idade or not senha or not email:
             st.warning("Adicione Todos Os Valores.")
         else:
-            View.inserir_paciente(nome, idade, fone, cpf, senha, email)
-            st.success("Paciente cadastrado.")
+            for p in Pacientes_CRUD.listar():
+                if p.get_email() == email:
+                    st.warning("Adicione outro email")
+                else:
+                    View.inserir_paciente(nome, idade, fone, cpf, senha, email)
+                    st.success("Paciente cadastrado.")
+                    break
 
 with tab2:
     st.title("Listar")
@@ -58,6 +68,7 @@ with tab2:
             "idade": idades,
             "cpf": cpfs,
             "telefone": telefones,
+            "email": emails,
         }
     )
 
@@ -69,6 +80,7 @@ with tab2:
             "idade": "Idade",
             "cpf": "Cpf",
             "telefone": "Telefone",
+            "email": "E-Mail",
         },
         hide_index=True,
     )
@@ -84,21 +96,17 @@ with tab3:
         st.write("Você selecionou:", paciente.get_nome())
 
         nome = st.text_input("Digite o nome do paciente: ", value=paciente.get_nome())
-        fone = st.text_input(
-            "Digite o telefone do paciente: ", value=paciente.get_fone()
-        )
+        fone = st.text_input("Digite o telefone do paciente: ", value=paciente.get_fone())
         cpf = st.text_input("Digite o CPF do paciente: ", value=paciente.get_cpf())
-        idade = st.number_input(
-            "Digite a idade do paciente: ", value=paciente.get_idade()
-        )
-
+        idade = st.number_input("Digite a idade do paciente: ", value=paciente.get_idade())
+        email = st.text_input("digite o email do paciente: ", value=paciente.get_email())
         id_paciente = paciente.get_id_paciente()
 
         if st.button("Atualizar"):
-            if not nome or not fone or not cpf or not idade:
+            if not nome or not fone or not cpf or not idade or not email:
                 st.warning("Adicione Todos Os Valores.")
             else:
-                View.atualizar_paciente(id_paciente, nome, idade, fone, cpf)
+                View.atualizar_paciente(id_paciente, nome, idade, fone, cpf, email, paciente.get_senha())
                 st.success("Paciente atualizado.")
 
 
@@ -107,16 +115,16 @@ with tab3:
 with tab4:
     st.title("Excluir")
 
-    medico = st.selectbox("Selecione o paciente para excluir", View.listar_pacientes(), index=None)
+    paciente = st.selectbox("Selecione o paciente para excluir", View.listar_pacientes(), index=None)
 
-    if medico is not None:
-        st.write("Você selecionou:", medico.get_nome())
+    if paciente is not None:
+        st.write("Você selecionou:", paciente.get_nome())
 
-        id_paciente = medico.get_id_paciente()
+        id_paciente = paciente.get_id_paciente()
 
         if st.button("Excluir"):
-            if not medico:
-                st.warning("selecione um médico.")
+            if not paciente:
+                st.warning("selecione um paciente.")
             else:
                 View.excluir_paciente(id_paciente)
                 st.success("Paciente excluído.")
