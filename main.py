@@ -20,21 +20,29 @@ with tab1:
 
 
     if st.button("Cadastrar"):
+        valido = True
         if not nome or not fone or not cpf or not idade or not senha or not email:
             st.warning("Adicione Todos Os Valores.")
         else:
-            for p in Pacientes_CRUD.listar():
+            for p in View.listar_pacientes():
                 if p.get_email() == email:
                     st.warning("Esse email já é usado por outro usuário.")
-                else:
-                    View.inserir_paciente(nome, idade, fone, cpf, senha, email)
-                    st.success("Paciente cadastrado.")
-                    st.switch_page("")
+                    valido = False
+                    
+            if valido:
+                View.inserir_paciente(nome, idade, fone, cpf, senha, email)
+                st.success("Paciente cadastrado.")
+                st.switch_page("pages/pacientes.py")
 
 
 with tab2:
     st.header("Login")
 
-    # nome de usuario eseha
+    email = st.text_input("qual o email?")
+    senha = st.text_input("qual a senha?")
 
+    for paciente in View.listar_pacientes():
+        if paciente.get_email()==email and paciente.get_senha()==senha:
+            st.switch_page("pages/pacientes.py")
+            # levar o paciente para o sidebar correto
     
