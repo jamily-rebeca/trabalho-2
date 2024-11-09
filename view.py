@@ -6,6 +6,11 @@ from models.agendaa import Agenda, Criar
 
 
 class View:
+
+    @staticmethod
+    def identificar(email):
+        Pacientes_CRUD.identificacao(email)
+
     @staticmethod
     def inserir_paciente(nome, idade, fone, cpf, senha, email):
         obj = Paciente(0, nome, idade, fone, cpf, senha, email)

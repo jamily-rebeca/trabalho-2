@@ -8,11 +8,14 @@ st.set_page_config(
     page_icon="👋",
 )
 
-with st.sidebar:
-    st.page_link("pages/medicos.py", label="Médicos")
-    st.page_link("pages/consultas.py", label="Consultas")
-    st.page_link("pages/pacientes.py", label="Paciente")
-st.header("Cadastro de pacientes")
+identificacao = View.identificar(st.session_state["email"])
+if identificacao == 1:
+    with st.sidebar:
+        st.page_link("pages/medicos.py", label="Médicos")
+        st.page_link("pages/consultas.py", label="Consultas")
+        st.page_link("pages/pacientes.py", label="Paciente")
+        st.page_link("main.py", label="Sair")
+    st.header("Cadastro de pacientes")
 
 tab1, tab2, tab3, tab4 = st.tabs(["Cadastrar", "Listar", "Atualizar", "Excluir"])
 
@@ -29,16 +32,18 @@ with tab1:
 
 
     if st.button("Cadastrar"):
+        valido = True
         if not nome or not fone or not cpf or not idade or not senha or not email:
             st.warning("Adicione Todos Os Valores.")
         else:
-            for p in Pacientes_CRUD.listar():
+            for p in View.listar_pacientes():
                 if p.get_email() == email:
                     st.warning("Adicione outro email")
-                else:
-                    View.inserir_paciente(nome, idade, fone, cpf, senha, email)
-                    st.success("Paciente cadastrado.")
-                    break
+                    valido = False
+            if valido:
+                View.inserir_paciente(nome, idade, fone, cpf, senha, email)
+                st.success("Paciente cadastrado.")
+                
 
 with tab2:
     st.title("Listar")

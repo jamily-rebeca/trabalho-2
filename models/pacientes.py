@@ -102,10 +102,12 @@ class Pacientes_CRUD:
     ):  # eu vou receber todos os atributos com exceção do id_cliente. Então eu crio um
         cls.abrir()  # eu poderia criar um random.radint para criar um id_cliente pouco provável  de se repetir, mas n
         x = 0
-        for email in cls.objetos_pacientes:
-            if email in cls.objetos_pacientes:
-                raise ValueError("informe um email válido")
-            else:
+        # for email in cls.objetos_pacientes:
+        #     if email in cls.objetos_pacientes:
+        #         raise ValueError("informe um email válido")
+        #     else:
+        for z in cls.objetos_pacientes:
+            if z.id_paciente == -1:
                 for y in cls.objetos_pacientes:
                     if y.id_paciente > x:
                         x = y.id_paciente
@@ -140,6 +142,15 @@ class Pacientes_CRUD:
                 x.set_senha(p.get_senha())
                 x.set_email(p.get_email())
                 cls.salvar()
+
+    @classmethod
+    def identificacao(cls, i):
+        cls.abrir()
+        for pacientes in cls.objetos_pacientes:
+            if i == -1:
+                return 1
+        else:
+            return 0
 
     @classmethod
     def excluir(cls, id_paciente):
