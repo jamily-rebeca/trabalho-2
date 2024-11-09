@@ -2,10 +2,15 @@ from models.pacientes import Paciente, Pacientes_CRUD
 from models.consultas import Consulta, Consultas_CRUD
 from models.medicos import Medico, Medico_CRUD
 from models.agendaa import Agenda, Criar
-
+from pages.pacientes import Pacientes
 
 
 class View:
+
+    @staticmethod
+    def criarAdmin():
+        Pacientes.CriarAdmin()
+    
 
     @staticmethod
     def identificar(email):
