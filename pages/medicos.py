@@ -2,21 +2,23 @@ import streamlit as st # type: ignore
 from view import View
 import pandas as pd # type: ignore
 
-st.set_page_config(
+
+
+# with st.sidebar:
+#     st.page_link("pages/medicos.py", label="Médicos")
+#     st.page_link("pages/consultas.py", label="Consultas")
+#     st.page_link("pages/pacientes.py", label="Paciente")
+
+
+# st.title("Página 2 medicos")
+
+class Medicos:
+    @staticmethod
+    def main():
+        st.set_page_config(
     page_title="Médicos",
     page_icon="👋",
 )
-
-with st.sidebar:
-    st.page_link("pages/medicos.py", label="Médicos")
-    st.page_link("pages/consultas.py", label="Consultas")
-    st.page_link("pages/pacientes.py", label="Paciente")
-
-
-st.title("Página 2 medicos")
-
-class Medicos:
-    def main():
         tab1, tab2, tab3, tab4 = st.tabs(["Cadastrar", "Listar", "Atualizar", "Excluir"])
         with tab1:
             Medicos.cadastrar_m()
@@ -26,7 +28,7 @@ class Medicos:
             Medicos.atualizar_m()
         with tab4:
             Medicos.excluir_m()
-
+    @staticmethod
     def cadastrar_m():
         st.title("Cadastrar")
         nome = st.text_input("Digite o nome do Médico: ")
@@ -36,6 +38,7 @@ class Medicos:
             View.inserir_medico(nome, especificacao)
             st.write("Médico cadastrado.")
 
+    @staticmethod
     def listar_m():
         st.title("Listar")
 
@@ -68,6 +71,7 @@ class Medicos:
             hide_index=True,
         )
 
+    @staticmethod
     def atualizar_m():
         st.title("Atualizar")
 
@@ -90,7 +94,7 @@ class Medicos:
                     View.atualizar_medico(id_medico, nome, especificacao)
                     st.success("médico atualizado.")
 
-
+    @staticmethod
     def excluir_m():
         st.title("Excluir")
 

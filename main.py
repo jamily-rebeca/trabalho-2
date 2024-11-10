@@ -9,8 +9,13 @@ st.title("Hello")
 
 
 class Principal:
-
-    def main(self):
+    @staticmethod
+    def main():
+        
+        st.set_page_config(
+    page_title="Visitante",
+    page_icon="👋",
+)
         tab1, tab2 = st.tabs(["Registro", "Login"])
         with tab1:
             Principal.cadastrar()
@@ -18,8 +23,8 @@ class Principal:
             Principal.login()
 
 
-
-    def cadastrar(self):
+    @staticmethod
+    def cadastrar():
         st.header("Cadastrar")
 
         # View.CriarAdmin cria um usuário admin
@@ -52,8 +57,8 @@ class Principal:
                     st.switch_page("pages/pacientes.py")
                     # mudar o link, está levando para a página que o admin tem acesso
 
-
-    def login(self):
+    @staticmethod
+    def login():
         st.header("Login")
 
         email = st.text_input("qual o email?")

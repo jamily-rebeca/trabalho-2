@@ -3,31 +3,26 @@ from view import View
 import pandas as pd # type: ignore
 from models.pacientes import Pacientes_CRUD
 
-st.set_page_config(
-    page_title="Pacientes",
-    page_icon="👋",
-)
 
-identificacao = View.identificar(st.session_state["email"])
-if identificacao == 1:
-    with st.sidebar:
-        st.page_link("pages/medicos.py", label="Médicos")
-        st.page_link("pages/consultas.py", label="Consultas")
-        st.page_link("pages/pacientes.py", label="Paciente")
-        st.page_link("main.py", label="Sair")
-    st.header("Cadastro de pacientes")
+
+# identificacao = View.identificar(st.session_state["email"])
+# if identificacao == 1:
+#     with st.sidebar:
+#         st.page_link("pages/medicos.py", label="Médicos")
+#         st.page_link("pages/consultas.py", label="Consultas")
+#         st.page_link("pages/pacientes.py", label="Paciente")
+#         st.page_link("main.py", label="Sair")
+#     st.header("Cadastro de pacientes")
 
 class Pacientes:
 
-    def CriarAdmin():
-        criar = True
-        for x in View.listar_pacientes():
-            if x.get_email() == "Admin":
-                criar = False
-        if criar:
-            View.inserir_paciente(-1, "Admin", 0, "999999999", "99999999999", "1234", "Admin@email")
-
+    
+    @staticmethod
     def main():
+        st.set_page_config(
+    page_title="Pacientes",
+    page_icon="👋",
+)
         tab1, tab2, tab3, tab4 = st.tabs(["Cadastrar", "Listar", "Atualizar", "Excluir"])
         with tab1:
             Pacientes.Cadastro_p()
@@ -41,6 +36,7 @@ class Pacientes:
 
     # isso vai ficar numa página diferente
 
+    @staticmethod
     def Cadastro_p():
         st.title("Cadastrar")
         nome = st.text_input("Digite o nome do paciente: ")
@@ -64,7 +60,7 @@ class Pacientes:
                     View.inserir_paciente(nome, idade, fone, cpf, senha, email)
                     st.success("Paciente cadastrado.")
                     
-
+    @staticmethod
     def lista_p():
         st.title("Listar")
 
@@ -109,7 +105,7 @@ class Pacientes:
         )
 
 
-
+    @staticmethod
     def atualizar_p():
         st.title("Atualizar")
 
@@ -134,7 +130,7 @@ class Pacientes:
 
 
 
-
+    @staticmethod
     def excluir_p():
         st.title("Excluir")
 

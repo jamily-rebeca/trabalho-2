@@ -4,20 +4,24 @@ from datetime import datetime
 from view import View
 from models.consultas import Consulta
 
-st.set_page_config(
+
+
+# with st.sidebar:
+#     st.page_link("pages/medicos.py", label="Médicos")
+#     st.page_link("pages/consultas.py", label="Consultas")
+#     st.page_link("pages/pacientes.py", label="Paciente")
+
+
+class Consultas:
+    @staticmethod
+    def main(): 
+        st.title("Consultas")
+        st.set_page_config(
     page_title="Consultas",
     page_icon="👋",
 )
 
-with st.sidebar:
-    st.page_link("pages/medicos.py", label="Médicos")
-    st.page_link("pages/consultas.py", label="Consultas")
-    st.page_link("pages/pacientes.py", label="Paciente")
 
-
-st.title("Consultas")
-class Consultas:
-    def main(): 
         tab1, tab2, tab3, tab4, tab5 = st.tabs(["Cadastrar", "Listar", "Atualizar", "Excluir", "Agenda"])
 
         with tab1:
@@ -31,7 +35,7 @@ class Consultas:
         with tab5:
             Consultas.excluir_c()
 
-
+    @staticmethod
     def cadastrar_c():
         st.title("Cadastrar Consulta")
         id_paciente = st.text_input("Digite id do paciente: ")
@@ -51,6 +55,7 @@ class Consultas:
                 View.atualizar_consulta(select.get_idConsulta(), id_paciente, id_medico, especificacao, select.get_horario())
                 st.write("Consulta cadastrada.")
 
+    @staticmethod
     def listar_c():
         st.title("Listar")
 
@@ -92,6 +97,7 @@ class Consultas:
             hide_index=True,
         )
 
+    @staticmethod
     def atualizar_c():
         st.title("Atualizar")
 
@@ -114,7 +120,7 @@ class Consultas:
                     View.atualizar_consulta(consulta.get_idConsulta(), id_paciente, id_medico, especificacao, horario)
                     st.success("consulta atualizado.")
 
-
+    @staticmethod
     def excluir_c():
         st.title("Excluir")
 
@@ -131,7 +137,7 @@ class Consultas:
                 View.excluir_medico(id_consulta)
                 st.write("consulta excluída.")
 
-
+    @staticmethod
     def agenda_c():
 
         st.title("Agenda")
