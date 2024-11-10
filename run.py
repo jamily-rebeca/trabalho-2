@@ -3,7 +3,7 @@ from pages.index import index
 
 def iniciar():
     if View.criarAdmin():
-        View.inserir_paciente(-1, "Admin", 0, "999999999", "99999999999", "1234", "Admin@email")
+        View.inserir_paciente(-1, "Admin", 0, "999999999", "99999999999", "1234", "Admin")
     index.sidebar()
 
 iniciar()

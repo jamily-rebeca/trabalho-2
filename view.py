@@ -3,7 +3,7 @@ from models.consultas import Consulta, Consultas_CRUD
 from models.medicos import Medico, Medico_CRUD
 from models.agendaa import Agenda, Criar
 from pages.index import index
-# from pages.pacientes import Pacientes
+
 
 
 class View:
@@ -12,7 +12,6 @@ class View:
     def criarAdmin():
         index.CriarAdmin()
     
-
     @staticmethod
     def identificar(email):
         Pacientes_CRUD.identificacao(email)

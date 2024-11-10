@@ -31,9 +31,14 @@ class Consultas:
         with tab3:
             Consultas.atualizar_c()
         with tab4:
-            Consultas.listar_c()
-        with tab5:
             Consultas.excluir_c()
+        with tab5:
+            Consultas.agenda_c()
+
+
+    @staticmethod
+    def main_cadastrar():
+        Consultas.cadastrar_c()
 
     @staticmethod
     def cadastrar_c():
@@ -55,8 +60,15 @@ class Consultas:
                 View.atualizar_consulta(select.get_idConsulta(), id_paciente, id_medico, especificacao, select.get_horario())
                 st.write("Consulta cadastrada.")
 
+
+    @staticmethod
+    def main_listar_c():
+        Consultas.listar_c()
+
     @staticmethod
     def listar_c():
+# Fazer com o listar_consultas!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         st.title("Listar")
 
         ids_consulta: list= []
@@ -98,6 +110,10 @@ class Consultas:
         )
 
     @staticmethod
+    def main_atualizar_c():
+        Consultas.atualizar_c()
+
+    @staticmethod
     def atualizar_c():
         st.title("Atualizar")
 
@@ -120,6 +136,11 @@ class Consultas:
                     View.atualizar_consulta(consulta.get_idConsulta(), id_paciente, id_medico, especificacao, horario)
                     st.success("consulta atualizado.")
 
+    
+    @staticmethod
+    def main_excluir():
+        Consultas.excluir_c()
+
     @staticmethod
     def excluir_c():
         st.title("Excluir")
@@ -138,9 +159,12 @@ class Consultas:
                 st.write("consulta excluída.")
 
     @staticmethod
-    def agenda_c():
+    def main_agenda():
+        Consultas.agenda_c()
 
-        st.title("Agenda")
+    @staticmethod
+    def agenda_c():
+        
 
         data = st.date_input("Qual o dia que desejas abrir a agenda?")
         Hinicial = st.time_input("Qual o horário inicial pra as consultas?")
@@ -150,3 +174,5 @@ class Consultas:
 
         if st.button("Criar"):
             View.Agendaa(data, Hinicial, Hfinal, intervalo, duracao)
+            st.success("Agenda Criada")
+            st.rerun()
