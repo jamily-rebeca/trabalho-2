@@ -151,6 +151,14 @@ class Pacientes_CRUD:
                 return 1
         else:
             return 0
+        
+    @classmethod
+    def CriarAdmin(cls):
+        criar = True
+        for x in cls.objetos_pacientes:
+            if x.get_email() == "Admin":
+                criar = False
+        return criar
 
     @classmethod
     def excluir(cls, id_paciente):
