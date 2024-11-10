@@ -2,11 +2,11 @@ from view import View
 import streamlit as st # type: ignore
 
 class Cadastrar:
-
+    @staticmethod
     def main():
         st.header("Cadastrar")
         Cadastrar.cadastrar()
-
+    @staticmethod
     def cadastrar():
     
         nome = st.text_input("Digite o nome do paciente: ")

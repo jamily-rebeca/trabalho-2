@@ -2,10 +2,11 @@ import streamlit as st # type: ignore
 from view import View
 
 class AbrirAgenda:
+    @staticmethod
     def main():
         st.title("Agenda")
         AbrirAgenda.agenda_c()
-
+    @staticmethod
     def agenda_c():
         
 

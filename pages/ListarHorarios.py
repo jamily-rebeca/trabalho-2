@@ -5,11 +5,11 @@ from view import View
 
 
 class ListarHorarios:
-
+    @staticmethod
     def main():
         st.header("Listar")
         ListarHorarios.listar_c()
-
+    @staticmethod
     def listar_c():
         id_paciente = st.session_state.id_paciente #isso funciona? Ou tem que se st.session_state["id_paciente"]
         nome_paciente = st.session_state.nome 
