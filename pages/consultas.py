@@ -66,8 +66,9 @@ class Consultas:
             st.title("Cadastrar Consulta")
             id_paciente = st.session_state.id_paciente
             medico = st.selectbox("Qual o médico?", View.listar_medicos(), index=None)
-            id_medico = medico.get_id_medico()
-            especificacao = medico.get_especificacao()
+            if medico is not None:
+                id_medico = medico.get_id_medico()
+                especificacao = medico.get_especificacao()
             # data = st.date_input("Digite a data da consulta")
             select = st.selectbox("Selecione um horário disponível", View.listConsultas(), index=None)
 

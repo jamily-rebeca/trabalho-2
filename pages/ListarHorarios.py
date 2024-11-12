@@ -59,14 +59,56 @@ class ListarHorarios:
         # )
         st.title("Listar")
 
-        ids_consulta: list= []
-        ids_pacientes: list= []
-        ids_medicos: list= []
-        especificacoes: list = []
-        horarios: list = []
+        ids_consulta = []
+        ids_pacientes = []
+        ids_medicos = []
+        especificacoes = []
+        horarios = []
 
         consultas = View.listConsultas()
         for c in consultas:
+            ids_consulta.append(c.get_idConsulta())
+            ids_pacientes.append(c.get_idPaciente())
+            ids_medicos.append(c.get_idMedico())
+            especificacoes.append(c.get_especificacao())
+            horarios.append(c.get_horario())
+            
+
+        df = pd.DataFrame(
+            {
+                "id consulta": ids_consulta,
+                "id paciente": ids_pacientes,
+                "id médico": ids_medicos,
+                "especificação": especificacoes,
+                "horários": horarios,
+            
+            }
+        )
+
+        st.dataframe(
+            df,
+            column_config={
+                "id consulta": "id consulta",
+                "id paciente": "id paciente",
+                "id médico": "id médico",
+                "especificacao": "Especificação",
+                "horários": "horários",
+            },
+            hide_index=True,
+        )
+
+
+
+    @staticmethod
+    def listar_minhas_c(id_paciente):
+        st.subheader("Listar Minhas Consultas")
+        ids_consulta = []
+        ids_pacientes = []
+        ids_medicos = []
+        especificacoes = []
+        horarios = []
+        MinhasConsultas = View.listar_consultas(id_paciente)
+        for c in MinhasConsultas:
             ids_consulta.append(c.get_idConsulta())
             ids_pacientes.append(c.get_idPaciente())
             ids_medicos.append(c.get_idMedico())

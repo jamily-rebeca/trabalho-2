@@ -41,7 +41,7 @@ class index:
             [
                 "Listar Horários",
                 "Marcar Consulta",
-                # "Atualizar Consulta",
+                "Listar Minhas Consultas",
                 # "Excluir Consulta",
                 # "Criar Agenda",
             ],
@@ -50,7 +50,8 @@ class index:
             ListarHorarios.main()
         if select == "Marcar Consulta":
             Consultas.main_cadastrar()
-        # if select == "Atualizar Consulta":
+        if select == "Listar Minhas Consultas":
+            ListarHorarios.listar_minhas_c(st.session_state["id_paciente"])
         #     Consultas.main_atualizar_c()
         # if select == "Excluir Consulta":
         #     Consultas.main_excluir()
