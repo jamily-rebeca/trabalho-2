@@ -76,6 +76,8 @@ class Consultas_CRUD:
                 allConsultas.append(consultas)
         return allConsultas
 
+    
+
     @classmethod
     def abrir(cls):
         cls.objetos_consulta = []

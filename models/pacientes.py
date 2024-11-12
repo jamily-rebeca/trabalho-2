@@ -85,7 +85,7 @@ class Pacientes_CRUD:
                         obj["fone"],
                         obj["cpf"],
                         obj["senha"],
-                        obj["email"]
+                        obj["email"],
                     )
                     cls.objetos_pacientes.append(p)
         except FileNotFoundError:
@@ -106,17 +106,24 @@ class Pacientes_CRUD:
         #     if email in cls.objetos_pacientes:
         #         raise ValueError("informe um email válido")
         #     else:
-        for z in cls.objetos_pacientes:
-            if z.id_paciente == -1:
-                for y in cls.objetos_pacientes:
-                    if y.id_paciente > x:
-                        x = y.id_paciente
-                obj.id_paciente = x + 1
-                cls.objetos_pacientes.append(obj)
-                cls.salvar()
+
+        for p in cls.objetos_pacientes:
+            if p.get_email() == obj.get_email():
+                return None
+
+        if obj.get_email() == "admin":
+            obj.set_id_paciente(-1)
+        else:
+            for y in cls.objetos_pacientes:
+                if y.id_paciente > x:
+                    x = y.id_paciente
+            obj.set_id_paciente(x + 1)
+        cls.objetos_pacientes.append(obj)
+        cls.salvar()
 
     @classmethod
     def listar(cls):
+
         cls.abrir()
         return cls.objetos_pacientes
 
@@ -131,7 +138,9 @@ class Pacientes_CRUD:
             raise ValueError("preencher este campo")
 
     @classmethod
-    def atualizar(cls, p: Paciente):  # nesse objeto o cliente me fornecerá o id_cliente de usuário e os demais atributos serão para a troca
+    def atualizar(
+        cls, p: Paciente
+    ):  # nesse objeto o cliente me fornecerá o id_cliente de usuário e os demais atributos serão para a troca
         cls.abrir()
         for x in cls.objetos_pacientes:
             if p.id_paciente == x.id_paciente:
@@ -151,7 +160,7 @@ class Pacientes_CRUD:
                 return 1
         else:
             return 0
-        
+
     @classmethod
     def CriarAdmin(cls):
         criar = True

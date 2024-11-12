@@ -1,7 +1,9 @@
-import streamlit as st # type: ignore
+import streamlit as st  # type: ignore
+
 # from view import View
-import pandas as pd # type: ignore
+import pandas as pd  # type: ignore
 from models.pacientes import Pacientes_CRUD
+
 # from main import Principal
 from pages.pacientes import Pacientes
 from pages.medicos import Medicos
@@ -11,8 +13,9 @@ from pages.AbrirConta import Cadastrar
 from pages.ListarHorarios import ListarHorarios
 from pages.Login import Login
 
+
 class index:
-    
+
     @staticmethod
     def menu_entrar():
         select = st.sidebar.selectbox("Menu", ["Cadastrar", "Login"])
@@ -20,8 +23,6 @@ class index:
             Cadastrar.main()
         if select == "Login":
             Login.main()
-        
-    
 
     @staticmethod
     def menu_admin():
@@ -32,22 +33,33 @@ class index:
             Medicos.main()
         if select == "Consultas":
             Consultas.main()
+
     @staticmethod
     def menu_paciente():
-        select = st.sidebar.selectbox("Menu", ["Listar Horários", "Marcar Consulta", "Atualizar Consulta", "Excluir Consulta", "Criar Agenda"])
+        select = st.sidebar.selectbox(
+            "Menu",
+            [
+                "Listar Horários",
+                "Marcar Consulta",
+                # "Atualizar Consulta",
+                # "Excluir Consulta",
+                # "Criar Agenda",
+            ],
+        )
         if select == "Listar Horários":
             ListarHorarios.main()
         if select == "Marcar Consulta":
             Consultas.main_cadastrar()
-        if select == "Atualizar Consulta":
-            Consultas.main_atualizar_c()
-        if select == "Excluir Consulta":
-            Consultas.main_excluir()
-        if select == "Criar Agenda":
-            AbrirAgenda.main()
+        # if select == "Atualizar Consulta":
+        #     Consultas.main_atualizar_c()
+        # if select == "Excluir Consulta":
+        #     Consultas.main_excluir()
+        # if select == "Criar Agenda":
+        #     AbrirAgenda.main()
+
     @staticmethod
     def sair():
-        if st.button("sair"):
+        if st.sidebar.button("sair"):
             del st.session_state["id_paciente"]
             del st.session_state["nome"]
 
@@ -55,7 +67,7 @@ class index:
     def sidebar():
         if "id_paciente" not in st.session_state:
             # usuário não está logado
-            index.menu_entrar()   
+            index.menu_entrar()
         else:
             # usuário está logado, verifica se é o admin
             # admin = st.session_state["cliente_nome"] == "admin"
@@ -67,7 +79,4 @@ class index:
             else:
                 index.menu_paciente()
             # controle de sair do sistema
-            index.sair() 
-
-
-
+            index.sair()

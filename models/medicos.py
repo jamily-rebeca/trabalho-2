@@ -107,3 +107,18 @@ class Medico_CRUD:
                 if id_medico == obj.id_medico:
                     cls.objetos_medicos.remove(obj)
                     cls.salvar()
+
+
+    @classmethod
+    def med_esp(cls, especificacao):
+        medicoNome = []
+        for medico in cls.objetos_medicos:
+            if medico.get_especificacao() == especificacao:
+                medicoNome.append(medico.get_nome())
+        return medicoNome
+    
+    @classmethod
+    def listarEspecificacoes(cls):
+        especificacoes = []
+        for medicos in cls.objetos_medicos:
+            especificacoes.append(medicos.get_especificacao())

@@ -1,7 +1,6 @@
-import streamlit as st # type: ignore
+import streamlit as st  # type: ignore
 from view import View
-import pandas as pd # type: ignore
-
+import pandas as pd  # type: ignore
 
 
 # with st.sidebar:
@@ -12,14 +11,19 @@ import pandas as pd # type: ignore
 
 # st.title("Página 2 medicos")
 
+
 class Medicos:
     @staticmethod
     def main():
-        st.set_page_config(
-    page_title="Médicos",
-    page_icon="👋",
-)
-        tab1, tab2, tab3, tab4 = st.tabs(["Cadastrar", "Listar", "Atualizar", "Excluir"])
+        #         st.set_page_config(
+        #     page_title="Médicos",
+        #     page_icon="👋",
+        # )
+        st.title("Médicos")
+
+        tab1, tab2, tab3, tab4 = st.tabs(
+            ["Cadastrar", "Listar", "Atualizar", "Excluir"]
+        )
         with tab1:
             Medicos.cadastrar_m()
         with tab2:
@@ -28,9 +32,9 @@ class Medicos:
             Medicos.atualizar_m()
         with tab4:
             Medicos.excluir_m()
+
     @staticmethod
     def cadastrar_m():
-        st.title("Cadastrar")
         nome = st.text_input("Digite o nome do Médico: ")
         especificacao = st.text_input("Digite a especificação do médico")
 
@@ -40,9 +44,8 @@ class Medicos:
 
     @staticmethod
     def listar_m():
-        st.title("Listar")
-
-        ids: list= []
+        st.subheader("JFDAIBJF")
+        ids: list = []
         nomes: list = []
         especificacoes: list = []
 
@@ -51,7 +54,6 @@ class Medicos:
             ids.append(m.get_id_medico())
             nomes.append(m.get_nome())
             especificacoes.append(m.get_especificacao())
-            
 
         df = pd.DataFrame(
             {
@@ -73,17 +75,18 @@ class Medicos:
 
     @staticmethod
     def atualizar_m():
-        st.title("Atualizar")
-
-        medico = st.selectbox("Selecione o medico para atualizar", View.listar_medicos(), index=None)
+        medico = st.selectbox(
+            "Selecione o medico para atualizar", View.listar_medicos(), index=None
+        )
 
         if medico is not None:
             st.write("Você selecionou:", medico.get_nome())
 
             nome = st.text_input("Digite o nome do medico: ", value=medico.get_nome())
-            
-            especificacao = st.text_input("Digite o especificação do médico: ", value=medico.get_especificacao())
-            
+
+            especificacao = st.text_input(
+                "Digite o especificação do médico: ", value=medico.get_especificacao()
+            )
 
             id_medico = medico.get_id_medico()
 
@@ -96,9 +99,9 @@ class Medicos:
 
     @staticmethod
     def excluir_m():
-        st.title("Excluir")
-
-        medico = st.selectbox("Selecione o medico para excluir", View.listar_medicos(), index=None)
+        medico = st.selectbox(
+            "Selecione o medico para excluir", View.listar_medicos(), index=None
+        )
 
         if medico is not None:
             st.write("Você selecionou:", medico.get_nome())

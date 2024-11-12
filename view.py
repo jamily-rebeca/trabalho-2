@@ -2,16 +2,16 @@ from models.pacientes import Paciente, Pacientes_CRUD
 from models.consultas import Consulta, Consultas_CRUD
 from models.medicos import Medico, Medico_CRUD
 from models.agendaa import Agenda, Criar
-# from pages.index import index
 
+# from pages.index import index
 
 
 class View:
 
     @staticmethod
     def criarAdmin():
-        Pacientes_CRUD.CriarAdmin()
-    
+        return Pacientes_CRUD.CriarAdmin()
+
     @staticmethod
     def identificar(email):
         Pacientes_CRUD.identificacao(email)
@@ -68,7 +68,7 @@ class View:
     @staticmethod
     def listar_consultas(id_paciente):
         return Consultas_CRUD.listar(id_paciente)
-    
+
     @staticmethod
     def listConsultas():
         return Consultas_CRUD.listConsultas()
@@ -86,8 +86,15 @@ class View:
     def excluir_consulta(id_consulta):
         Consultas_CRUD.excluir(id_consulta)
 
-
     @staticmethod
     def Agendaa(data, Hinicial, Hfinal, intervalo, duracao):
         Criar.CriarAgenda(data, Hinicial, Hfinal, intervalo, duracao)
-        
+
+
+    @staticmethod
+    def listarEspecificacoes():
+        return Medico_CRUD.listarEspecificacoes()
+
+    @staticmethod
+    def med_esp(especificacao):
+        return Medico_CRUD.med_esp(especificacao)
