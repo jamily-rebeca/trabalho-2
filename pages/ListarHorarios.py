@@ -8,6 +8,7 @@ class ListarHorarios:
     @staticmethod
     def main():
         st.header("Listar")
+        print(st.session_state)
         ListarHorarios.listar_c()
     @staticmethod
     def listar_c():

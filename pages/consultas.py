@@ -43,7 +43,7 @@ class Consultas:
 
     @staticmethod
     def cadastrar_c():
-        if st.session_state["id_paciente"] == -1:
+        if st.session_state["id_paciente"] == -1: #Esse daqui também n funciona, pula diretamente pro else pq n tem id_paciente nenhum, ent o cadastrar do paciente está o mesmo don admin
             st.title("Cadastrar Consulta")
             id_paciente = st.text_input("Digite id do paciente: ")
             id_medico = st.text_input("Digite o id do Médico: ")
