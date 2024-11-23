@@ -1,1 +1,1 @@
-[{"id_paciente": -1, "nome": "Admin", "idade": 0, "fone": "999999999", "cpf": "99999999999", "senha": "1234", "email": "admin"}, {"id_paciente": 1, "nome": "bob", "idade": 12.0, "fone": "123456789", "cpf": "12345678900", "senha": "1234", "email": "bob@email"}]
+[{"id_paciente": -1, "nome": "Admin", "aniversario": "01/01/1", "fone": "999999999", "cpf": "99999999999", "senha": "1234", "email": "admin"}]

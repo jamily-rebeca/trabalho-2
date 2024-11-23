@@ -6,9 +6,7 @@ from datetime import timedelta
 
 
 class Consulta:
-    def __init__(
-        self, id_consulta, id_paciente, id_medico, especificacao, horario: datetime
-    ):
+    def __init__(self, id_consulta, id_paciente, id_medico, especificacao, horario: datetime):
         self.set_idConsulta(id_consulta)
         self.set_idPaciente(id_paciente)
         self.set_idMedico(id_medico)
@@ -51,7 +49,7 @@ class Consulta:
         if horario:
             self.horario = horario
         else:
-            raise ValueError("determine um horário válido")
+            raise ValueError("determine um horário")
 
     def get_horario_str(self):
         strHorario = datetime.strftime(self.horario, "%d/%m/%Y %H:%M")

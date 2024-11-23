@@ -1,6 +1,7 @@
 import streamlit as st # type: ignore
 import pandas as pd # type: ignore
 from view import View
+from datetime import datetime
 
 
 
@@ -135,6 +136,40 @@ class ListarHorarios:
                 "id médico": "id médico",
                 "especificacao": "Especificação",
                 "horários": "horários",
+            },
+            hide_index=True,
+        )
+
+
+
+
+    @staticmethod
+    def aniversariantes():
+        hj = datetime.today()
+        aniversariantes = []
+        for paciente in View.listar_pacientes():
+            if paciente.get_aniversario().month == hj.month and paciente.get_aniversario().day == hj.day:
+                aniversariantes.append(paciente)
+        if not aniversariantes:
+                    st.write("Sem Aniversariantes")
+        else:
+            nome = []
+            aniv = []
+            for cliente in aniversariantes:
+                nome.append(cliente.get_nome())
+                aniv.append(cliente.get_aniversario())
+            
+            dic_aniv = pd.DataFrame(
+            {
+                "Nome": nome,
+                "Nascimentos": aniv,            
+            }
+        )
+            st.dataframe(
+            dic_aniv,
+            column_config={
+                "Nome": "Nome",
+                "Nascimentos": "Nascimentos",
             },
             hide_index=True,
         )

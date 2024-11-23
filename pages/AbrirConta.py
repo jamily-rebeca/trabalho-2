@@ -10,7 +10,7 @@ class Cadastrar:
     def cadastrar():
     
         nome = st.text_input("Digite o nome do paciente: ")
-        idade = st.number_input("Digite a idade do paciente: ")
+        aniversario = st.date_input("Qual a sua data de nascimento? ")
         fone = st.text_input("Digite o telefone do paciente: ")
         cpf = st.text_input("Digite o CPF do paciente: ")
         senha = st.text_input("Digite a senha do paciente: ", type="password")
@@ -19,7 +19,7 @@ class Cadastrar:
 
         if st.button("Cadastrar"):
             valido = True
-            if not nome or not fone or not cpf or not idade or not senha or not email:
+            if not nome or not fone or not cpf or not aniversario or not senha or not email:
                 st.warning("Adicione Todos Os Valores.")
             else:
                 for p in View.listar_pacientes():
@@ -28,5 +28,5 @@ class Cadastrar:
                         valido = False
                         
                 if valido:
-                    View.inserir_paciente(nome, idade, fone, cpf, senha, email)
+                    View.inserir_paciente(nome, aniversario, fone, cpf, senha, email)
                     st.success("Paciente cadastrado.")

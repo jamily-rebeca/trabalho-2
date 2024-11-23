@@ -42,6 +42,7 @@ class index:
                 "Listar Horários",
                 "Marcar Consulta",
                 "Listar Minhas Consultas",
+                "Listar Aniversariantes"
                 # "Excluir Consulta",
                 # "Criar Agenda",
             ],
@@ -52,8 +53,8 @@ class index:
             Consultas.main_cadastrar()
         if select == "Listar Minhas Consultas":
             ListarHorarios.listar_minhas_c(st.session_state["id_paciente"])
-        #     Consultas.main_atualizar_c()
-        # if select == "Excluir Consulta":
+        if select == "Listar Aniversariantes":
+            ListarHorarios.aniversariantes()
         #     Consultas.main_excluir()
         # if select == "Criar Agenda":
         #     AbrirAgenda.main()

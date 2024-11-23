@@ -3,10 +3,10 @@ from datetime import datetime
 
 
 class Paciente:
-    def __init__(self, id_paciente, nome, idade, fone, cpf, senha, email):
+    def __init__(self, id_paciente, nome, aniversario, fone, cpf, senha, email):
         self.set_id_paciente(id_paciente)
         self.set_nome(nome)
-        self.set_idade(idade)
+        self.set_aniversario(aniversario)
         self.set_fone(fone)
         self.set_cpf(cpf)
         self.set_senha(senha)
@@ -31,7 +31,7 @@ class Paciente:
         if fone:
             self.fone = fone
         else:
-            raise ValueError
+            raise ValueError("Adicione o telefone")
 
     def get_fone(self):
         return self.fone
@@ -45,21 +45,27 @@ class Paciente:
     def get_cpf(self):
         return self.cpf
 
-    def set_idade(self, idade: int):
-        if idade >= 0:
-            self.idade = idade
+    def set_aniversario(self, aniversario: datetime):
+        if aniversario <= datetime.today():
+            self.aniversario = aniversario
 
-    def get_idade(self):
-        return self.idade
+    def get_aniversario(self):
+        return self.aniversario
 
     def set_senha(self, senha):
-        self.senha = senha
+        if senha:
+            self.senha = senha
+        else:
+            raise ValueError("Informe a senha que desejas utilizar")
 
     def get_senha(self):
         return self.senha
 
     def set_email(self, email):
-        self.email = email
+        if email:
+            self.email = email
+        else:
+            raise ValueError("Informe um email")
 
     def get_email(self):
         return self.email
@@ -81,7 +87,7 @@ class Pacientes_CRUD:
                     p = Paciente(
                         obj["id_paciente"],
                         obj["nome"],
-                        obj["idade"],
+                        datetime.strptime(obj["aniversario"], "%d/%m/%Y"),
                         obj["fone"],
                         obj["cpf"],
                         obj["senha"],
@@ -91,10 +97,16 @@ class Pacientes_CRUD:
         except FileNotFoundError:
             pass
 
+    @staticmethod
+    def modo(obj):
+        if isinstance(obj, datetime):
+            return datetime.strftime(obj, "%d/%m/%Y")
+        return vars(obj)
+    
     @classmethod
     def salvar(cls):
         with open("data/pacientes.json", mode="w") as arquivo:
-            json.dump(cls.objetos_pacientes, arquivo, default=vars)
+            json.dump(cls.objetos_pacientes, arquivo, default=Pacientes_CRUD.modo)
 
     @classmethod
     def inserir(
@@ -145,7 +157,7 @@ class Pacientes_CRUD:
         for x in cls.objetos_pacientes:
             if p.id_paciente == x.id_paciente:
                 x.set_nome(p.get_nome())
-                x.set_idade(p.get_idade())
+                x.set_aniversario(p.get_aniversario())
                 x.set_fone(p.get_fone())
                 x.set_cpf(p.get_cpf())
                 x.set_senha(p.get_senha())

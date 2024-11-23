@@ -17,8 +17,8 @@ class View:
         Pacientes_CRUD.identificacao(email)
 
     @staticmethod
-    def inserir_paciente(nome, idade, fone, cpf, senha, email):
-        obj = Paciente(0, nome, idade, fone, cpf, senha, email)
+    def inserir_paciente(nome, aniversario, fone, cpf, senha, email):
+        obj = Paciente(0, nome, aniversario, fone, cpf, senha, email)
         Pacientes_CRUD.inserir(obj)
 
     @staticmethod

@@ -78,20 +78,6 @@ class Criar:
 
 
 
-    # def aniversariantes():
-    #     hj = datetime.today()
-    #     aniversariantes = []
-    #     for paciente in View.listpacinte():
-    #         if paciente.get_aniversario().month == hj.month and paciente.get_aniversario().day == hj.day:
-    #             aniversariantes.append(paciente)
-        # if not aniversariantes:
-                #    st.write("Sem Aniversariantes")
-        #   else:
-        #       dados = []
-        #       for cliente in aniversariantes:
-        #           dado.append("Nome":cliente.get_nome(),
-        #                       "Data de nascimento" : cliente.get_aniversario())
-
 
     # Os pacientes teriam mais um atributo, que seria o aniversário. e esssa def retornaria uma lista de pacientes que faerm aniversário no mês que for definida com o datetime.today
     # eu só não sei como que eu faria para tirar o datetime usando o time_input do streamlit
